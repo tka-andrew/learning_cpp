@@ -11,4 +11,5 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
 # executables
 add_executable(friendClassExample src/friend_class_example.cpp)
 add_executable(multithreadedExample src/multithreaded_example.cpp)
+add_executable(reserveVsResize src/reserve_vs_resize.cpp)
 
