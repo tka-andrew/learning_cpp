@@ -10,6 +10,11 @@ cmake --build .
 ```
 
 ## To generate executable using g++
+For normal program:
 ```
 g++ program-name.cpp -o output-name
+```
+For multi-threaded program:
+```
+g++ -pthread program-name.cpp -o output-name
 ```
