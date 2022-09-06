@@ -3,41 +3,43 @@
 
 int main()
 {
-    std::cout << "===== v1 =====\n";
-    std::vector<int> v1;
-    v1.resize(10); // allocation + instance creation
+    std::vector<int> v;
 
-    std::cout << v1.size() << std::endl;     // prints 10, already 10 items in the vector
-    std::cout << v1.capacity() << std::endl; // prints 10
+    std::cout << "\n============== default size and capacity =========\n";
+    std::cout << "size: " << v.size() << std::endl;         // prints 0, default size
+    std::cout << "capacity: " << v.capacity() << std::endl; // prints 0, default capacity
 
-    // Since there are already 10 items in the vector, we should modify the elements instead of push_back
-    for (int i = 0; i < 10; ++i)
-        v1[i] = 999999;
+    // resize(10) set the number of elements to 10
+    // resize() supposedly only affect size, unless capacity is not enough
+    // if current size() is less than that, instance creation will be done
+    // if current size() is more than that, throw away the extra elements
+    v.resize(10);
+    std::cout << "\n============== after v.resize(10) =========\n";
+    std::cout << "size: " << v.size() << std::endl;         // prints 10
+    std::cout << "capacity: " << v.capacity() << std::endl; // prints 10, capacity changed due to increased in size
 
-    std::cout << "===== v2 =====\n";
-    std::vector<int> v2;
-    v2.reserve(10); // only allocation
+    v.resize(5);
+    std::cout << "\n============== after v.resize(5) =========\n";
+    std::cout << "size: " << v.size() << std::endl;         // prints 5
+    std::cout << "capacity: " << v.capacity() << std::endl; // prints 10
 
-    std::cout << v2.size() << std::endl;     // prints 0, still no item in the vector
-    std::cout << v2.capacity() << std::endl; // prints 10
+    // reserve(100) set the capacity to 100, means the vector now can store up to 100 elements
+    // reserve() only affects capacity, it does not affect size and elements in the vector
+    // if current capacity() is more than that, it will remain the capacity
+    v.reserve(100);
+    std::cout << "\n============== after v.reserve(100) =========\n";
+    std::cout << "size: " << v.size() << std::endl;         // prints 5
+    std::cout << "capacity: " << v.capacity() << std::endl; // prints 100
 
-    // Since there is no items in the vector, we can only push_back()
-    for (int i = 0; i < 10; ++i)
-        v2.push_back(999999);
-
-    std::cout << "===== v3 =====\n";
-    std::vector<int> v3;
-    v3.reserve(10); // only allocation
-
-    std::cout << v3.size() << std::endl;     // prints 0, still no item in the vector
-    std::cout << v3.capacity() << std::endl; // prints 10
-
-    // What if we append 11 items?
-    for (int i = 0; i < 11; ++i)
-        v3.push_back(999999);
-
-    std::cout << v3.size() << std::endl;     // prints 11
-    std::cout << v3.capacity() << std::endl; // prints 20, capacity is doubled when reallocation happens
+    v.reserve(50);
+    std::cout << "\n============== after v.reserve(50) =========\n";
+    std::cout << "size: " << v.size() << std::endl;         // prints 5
+    std::cout << "capacity: " << v.capacity() << std::endl; // prints 100
+    
+    v.shrink_to_fit();
+    std::cout << "\n============== after v.shrink_to_fit() =========\n";
+    std::cout << "size: " << v.size() << std::endl;         // prints 5
+    std::cout << "capacity: " << v.capacity() << std::endl; // prints 5
 
     return 0;
 }
