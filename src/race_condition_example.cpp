@@ -8,11 +8,15 @@
 int userCount = 0;
 
 void registerUser() {
-    std::fstream db("dummy.txt");
+    std::fstream db;
+    db.open("dummy.txt", std::ios::in); // open for read
     int count = 0;
     while (db >> count) {
         userCount = count + 1;
     }
+    db.close();
+    db.open("dummy.txt", std::ios::out | std::ios::trunc); // open to update file
+    db << userCount;
     db.close();
 }
 
