@@ -9,6 +9,10 @@ cmake ..
 cmake --build .
 ```
 
+## To run the executables generated using CMake
+- Go to the build directory and run the executables there
+- Take note that some executables such as the raceConditionExample need you to create some files for proper demonstration
+
 ## To generate executable using g++
 For normal program:
 ```
