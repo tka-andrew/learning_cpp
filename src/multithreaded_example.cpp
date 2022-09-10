@@ -55,15 +55,17 @@ void printMsgEvery5seconds(std::string msg)
 int main()
 {
     std::thread task1(loading);
-    task1.join(); // block main execution until task1 finished
+    task1.join(); // This line is placed before declaration of task2 and task3, to ensure task1 is finished running before proceeding to other tasks
+
+    std::thread task1b(loading);
+    task1b.detach(); // Calling detach() will leave the thread to run in the background
 
     // Constructs the new thread and runs it. Does not block execution.
     std::thread task2(currentTime);
-    std::thread task3(printMsgEvery5seconds, "Hello World"); // thread constructor with parameters
+    std::thread task3(printMsgEvery5seconds, "Hello World!"); // thread constructor with parameters
 
-    while (true)
-    {
-    }
+    task2.join(); // thread should be either detach() or join()
+    task3.join(); // thread should be either detach() or join()
 
     return 0;
 }
