@@ -3,6 +3,15 @@
 #include <thread>
 #include <chrono>
 #include <ctime>
+#include <signal.h>
+
+// Reference: https://www.tutorialspoint.com/how-do-i-catch-a-ctrlplusc-event-in-cplusplus
+void interactive_signal_callback_handler(int signum)
+{
+    std::cout << "\nCaught interactive signal: " << signum << std::endl;
+    std::cout << "Terminatng program" << std::endl;
+    std::exit(signum);
+}
 
 void loading()
 {
@@ -54,11 +63,18 @@ void printMsgEvery5seconds(std::string msg)
 
 int main()
 {
+    // Register interactive signal and interactive signal handler
+    signal(SIGINT, interactive_signal_callback_handler);
+
     std::thread task1(loading);
     task1.join(); // This line is placed before declaration of task2 and task3, to ensure task1 is finished running before proceeding to other tasks
 
+    std::cout<<"\nThis will not be printed unless task1 finished.\n";
+
     std::thread task1b(loading);
     task1b.detach(); // Calling detach() will leave the thread to run in the background
+
+    std::cout<<"\nThis will be printed even though task1b not yet finished.\n";
 
     // Constructs the new thread and runs it. Does not block execution.
     std::thread task2(currentTime);
