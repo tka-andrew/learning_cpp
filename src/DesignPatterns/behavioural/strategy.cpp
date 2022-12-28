@@ -1,6 +1,8 @@
 /**
  * Strategy is a behavioral design pattern that allows you to choose between different algorithms or approaches to solve a problem at runtime.
  * Strategy design pattern looks quite similar to State design pattern.
+ * The main difference is, State design pattern does keep track of a state and alter its behaviour based on the state, for example, currentTool.
+ * On the other hand, Strategy design pattern selects the approaches to be used at run time.
  */
 
 #include <iostream>
