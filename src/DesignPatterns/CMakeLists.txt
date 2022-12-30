@@ -16,3 +16,4 @@ add_executable(visitorPatternExample behavioural/visitor.cpp)
 
 # Structural Design Patterns
 add_executable(compositePatternExample structural/composite.cpp)
+add_executable(adapterPatternExample structural/adapter.cpp)
